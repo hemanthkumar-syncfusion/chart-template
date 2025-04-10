@@ -288,7 +288,7 @@
     var initializeChart = function (chartContainer) {
         chartElement = document.createElement('div');
         chartContainer.append(chartElement);
-        chart = new ej2_charts_1.Chart({
+        chart = new ej.charts.Chart({
             width: '100%',
             height: '400px',
             title: 'Sales Data'
@@ -354,7 +354,7 @@
         chartTabElement.classList.add('e-tab-spacer');
         propertiesTabElement = document.createElement('div');
         propertiesTabElement.classList.add('e-tab-spacer');
-        tab = new ej2_navigations_1.Tab({
+        tab = new ej.navigations.Tab({
             height: 400,
             items: [
                 {
@@ -409,21 +409,21 @@
     var initializePropertiesTab = function () {
         columnFacetElement = document.createElement('input');
         propertiesTabElement.append(columnFacetElement);
-        columnFacetDropDownListObject = new ej2_dropdowns_1.DropDownList({
+        columnFacetDropDownListObject = new ej.dropdowns.DropDownList({
             placeholder: 'Column Facet',
             floatLabelType: 'Always',
             width: 250
         });
         columnWidthElement = document.createElement('input');
         propertiesTabElement.append(columnWidthElement);
-        columnWidthDropDownListObject = new ej2_dropdowns_1.DropDownList({
+        columnWidthDropDownListObject = new ej.dropdowns.DropDownList({
             placeholder: 'Column Width',
             floatLabelType: 'Always',
             width: 250
         });
         borderElement = document.createElement('input');
         propertiesTabElement.append(borderElement);
-        borderCheckboxObject = new ej2_buttons_1.CheckBox({ label: 'Apply Border' });
+        borderCheckboxObject = new ej.buttons.CheckBox({ label: 'Apply Border' });
     };
     var renderPropertiesTab = function (refresh) {
         columnFacetDropDownListObject.dataSource = getColumnFacetDataSource();
