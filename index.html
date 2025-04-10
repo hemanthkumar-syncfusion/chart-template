@@ -299,8 +299,8 @@
         if (chartType === 'Bar' || chartType === 'StackingBar' || chartType === 'Line'
             || chartType === 'StackingLine' || chartType === 'Area' || chartType === 'RangeArea') {
             chartXAxis = {
-                minimum: datasource_1.year,
-                maximum: datasource_1.year + datasource_1.data.length,
+                minimum: year,
+                maximum: year + data.length,
                 interval: 5,
                 title: 'Year',
             };
