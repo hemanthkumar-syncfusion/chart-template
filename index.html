@@ -17,6 +17,46 @@
     <br/>
     <div id="Grid"></div>
 <script >
-  
+    var data = [];
+    var dataCount = 20;
+    var year = new Date().getFullYear() - dataCount;
+    var fruits = [
+        "Apple",
+        "Banana",
+        "Mango",
+        "Orange",
+        "Pineapple",
+        "Grapes",
+        "Strawberry",
+        "Watermelon",
+        "Papaya",
+        "Blueberry",
+        "Kiwi",
+        "Peach",
+        "Pear",
+        "Cherry",
+        "Pomegranate",
+        "Guava",
+        "Lychee",
+        "Plum",
+        "Coconut",
+        "Dragon fruit"
+    ];
+    var getRandomNumber = function (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+    for (var i = 0; i < dataCount; i++) {
+        var loss = getRandomNumber(5, 30);
+        data.push({
+            Name: fruits[Math.floor(Math.random() * fruits.length)],
+            Year: exports.year + i,
+            Profit: 100 - loss,
+            Loss: loss,
+            Quality: getRandomNumber(85, 95),
+            Quantity: getRandomNumber(50000, 70000)
+        });
+    }
+    data.reverse();
+    console.log(data);
 </script>
 </body></html>
