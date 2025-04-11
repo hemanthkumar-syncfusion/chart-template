@@ -253,6 +253,8 @@
     var columnWidthElement;
     var borderCheckboxObject;
     var borderElement;
+    var dashArrayCheckboxObject;
+    var dashArrayElement;
     var destroy = function () {
         if (chart) {
             chart.destroy();
@@ -277,6 +279,12 @@
             borderCheckboxObject = null;
             borderElement.remove();
             borderElement = null;
+        }
+        if (dashArrayCheckboxObject) {
+            dashArrayCheckboxObject.destroy();
+            dashArrayCheckboxObject = null;
+            dashArrayElement.remove();
+            dashArrayElement = null;
         }
         if (tab) {
             tab.destroy();
@@ -424,6 +432,9 @@
         borderElement = document.createElement('input');
         propertiesTabElement.append(borderElement);
         borderCheckboxObject = new ej.buttons.CheckBox({ label: 'Apply Border' });
+        dashArrayElement = document.createElement('input');
+        propertiesTabElement.append(dashArrayElement);
+        dashArrayCheckboxObject = new ej.buttons.CheckBox({ label: 'Apply Dash Line' });
     };
     var renderPropertiesTab = function (refresh) {
         columnFacetDropDownListObject.dataSource = getColumnFacetDataSource();
@@ -470,6 +481,20 @@
         refresh ? borderCheckboxObject.refresh() : borderCheckboxObject.appendTo(borderElement);
         borderCheckboxObject.element.parentElement.parentElement.style.display = chartType === 'Bar' || chartType === 'Area' || chartType === 'RangeArea' ? '' : 'none';
         borderCheckboxObject.element.parentElement.parentElement.classList.add('e-bottom-spacer');
+        var dashArrayChange = null;
+        if (chartType === 'Line' || chartType === 'StackingLine') {
+            dashArrayChange = function (args) {
+                for (var i = 0; i < chart.series.length; i++) {
+                    chart.series[i].dashArray = args.checked ? '5,5' : '';
+                }
+                chart.refresh();
+            };
+        }
+        dashArrayCheckboxObject.change = dashArrayChange;
+        dashArrayCheckboxObject.checked = false;
+        refresh ? dashArrayCheckboxObject.refresh() : dashArrayCheckboxObject.appendTo(dashArrayElement);
+        dashArrayCheckboxObject.element.parentElement.parentElement.style.display = chartType === 'Line' || chartType === 'StackingLine' ? '' : 'none';
+        dashArrayCheckboxObject.element.parentElement.parentElement.classList.add('e-bottom-spacer');
     };
     var grid = new ej.grids.Grid({
         locale: 'fr-BE',
