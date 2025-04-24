@@ -519,7 +519,7 @@
         propertiesTabElement.style.padding = '15px';
         dataTabElement = document.createElement('div');
         dataTabElement.style.padding = '15px';
-        tab = new ej2_navigations_1.Tab({
+        tab = new ej.navigations.Tab({
             height: 400,
             items: [
                 {
@@ -589,7 +589,7 @@
     var initializeDataTab = function () {
         dataGridElement = document.createElement('div');
         dataTabElement.append(dataGridElement);
-        dataGrid = new grid_1.Grid({
+        dataGrid = new ej.grids.Grid({
             allowRowDragAndDrop: true
         });
     };
@@ -611,7 +611,7 @@
     var initializePropertiesTab = function () {
         seriesElement = document.createElement('input');
         propertiesTabElement.append(seriesElement);
-        seriesDropDownListObject = new ej2_dropdowns_1.DropDownList({
+        seriesDropDownListObject = new ej.dropdowns.DropDownList({
             placeholder: 'Series',
             floatLabelType: 'Always',
             width: 250
@@ -627,7 +627,7 @@
         seriesColorPickerObject = new ej2_inputs_1.ColorPicker({});
         columnFacetElement = document.createElement('input');
         propertiesTabElement.append(columnFacetElement);
-        columnFacetDropDownListObject = new ej2_dropdowns_1.DropDownList({
+        columnFacetDropDownListObject = new ej.dropdowns.DropDownList({
             placeholder: 'Column Facet',
             floatLabelType: 'Always',
             width: 250
