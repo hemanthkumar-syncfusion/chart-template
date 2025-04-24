@@ -10,81 +10,62 @@
     <link href="https://cdn.syncfusion.com/ej2/29.1.39/tailwind3.css" rel="stylesheet">
 
     <style>
-        .e-dialog .e-dlg-header-content {
-            border-bottom: 1px solid gray;
-            border-bottom-left-radius: 0px;
-            border-bottom-right-radius: 0px;
-        }
-
-        .e-dialog-barchart-icon::before {
+        .e-grid-barchart-icon::before {
             content: '\e86c';
             font-family: 'e-icons';
         }
 
-        .e-barchart-normal-icon::before {
+        .e-grid-barchart-normal-icon::before {
             content: '\e86c';
             font-family: 'e-icons';
         }
 
-        .e-barchart-stacked-icon::before {
+        .e-grid-barchart-stacked-icon::before {
             content: '\e866';
             font-family: 'e-icons';
         }
 
-        .e-dialog-linechart-icon::before {
+        .e-grid-linechart-icon::before {
             content: '\e8c3';
             font-family: 'e-icons';
         }
 
-        .e-linechart-normal-icon::before {
+        .e-grid-linechart-normal-icon::before {
             content: '\e8c2';
             font-family: 'e-icons';
         }
 
-        .e-linechart-stacked-icon::before {
+        .e-grid-linechart-stacked-icon::before {
             content: '\e8c1';
             font-family: 'e-icons';
         }
 
-        .e-dialog-areachart-icon::before {
+        .e-grid-areachart-icon::before {
             content: '\e870';
             font-family: 'e-icons';
         }
 
-        .e-areachart-normal-icon::before {
+        .e-grid-areachart-normal-icon::before {
             content: '\e870';
             font-family: 'e-icons';
         }
 
-        .e-areachart-range-icon::before {
+        .e-grid-areachart-range-icon::before {
             content: '\e871';
             font-family: 'e-icons';
         }
 
-        .e-display-flex {
-            display: flex;
+        .e-grid-chart-dialog-max-icon::before {
+            content: '\e72f';
+            font-family: 'e-icons';
         }
 
-        .e-chart-container {
-            width: 70%;
+        .e-grid-chart-dialog-min-icon::before {
+            content: '\e7ed';
+            font-family: 'e-icons';
         }
 
-        .e-tab-container {
-            margin-left: 20px;
-            border-left: 1px solid gray;
-            width: 30%;
-        }
-
-        .e-tab-spacer {
-            padding-left: 15px;
-            padding-top: 15px;
-        }
-
-        .e-bottom-spacer {
-            margin-bottom: 15px !important;
-        }
-
-        .e-chart-list-icon {
+        .e-grid-context-menu-dialog .e-chart-list-icon {
             cursor: pointer;
             margin-top: 10px;
             margin-left: 10px;
@@ -97,16 +78,15 @@
             border: 2px solid white;
         }
 
-        .e-chart-list-icon-focus {
+        .e-grid-context-menu-dialog .e-chart-list-icon.e-chart-list-icon-selected {
             border: 2px solid orange;
         }
 
-        .e-grid .e-dialog .e-tab .e-content {
-            overflow-y: auto;
-        }
-
-        #Grid_context_menu_dialog {
-            width: 95% !important;
+        .e-grid-context-menu-dialog .e-grid-chart-dialog-min-max {
+            padding: 6px 10px;
+            border: 0px;
+            position: relative;
+            float: right;
         }
     </style>
 </head>
