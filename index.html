@@ -624,7 +624,7 @@
         seriesColorContainer.append(seriesColorText);
         seriesColorElement = document.createElement('input');
         seriesColorContainer.append(seriesColorElement);
-        seriesColorPickerObject = new ej2_inputs_1.ColorPicker({});
+        seriesColorPickerObject = new ej.inputs.ColorPicker({});
         columnFacetElement = document.createElement('input');
         propertiesTabElement.append(columnFacetElement);
         columnFacetDropDownListObject = new ej.dropdowns.DropDownList({
@@ -634,7 +634,7 @@
         });
         columnWidthElement = document.createElement('input');
         propertiesTabElement.append(columnWidthElement);
-        columnWidthNumericTextBoxObject = new ej2_inputs_1.NumericTextBox({
+        columnWidthNumericTextBoxObject = new ej.inputs.NumericTextBox({
             placeholder: 'Column Width',
             floatLabelType: 'Always',
             width: 250
@@ -647,10 +647,10 @@
         borderContainer.append(borderText);
         borderElement = document.createElement('input');
         borderContainer.append(borderElement);
-        borderSwitchObject = new ej2_buttons_1.Switch({ onLabel: 'On', offLabel: 'Off' });
+        borderSwitchObject = new ej.buttons.Switch({ onLabel: 'On', offLabel: 'Off' });
         borderWidthElement = document.createElement('input');
         propertiesTabElement.append(borderWidthElement);
-        borderWidthNumericTextBoxObject = new ej2_inputs_1.NumericTextBox({
+        borderWidthNumericTextBoxObject = new ej.inputs.NumericTextBox({
             placeholder: 'Border Width',
             floatLabelType: 'Always',
             width: 250
@@ -663,17 +663,17 @@
         borderColorContainer.append(borderColorText);
         borderColorElement = document.createElement('input');
         borderColorContainer.append(borderColorElement);
-        borderColorPickerObject = new ej2_inputs_1.ColorPicker({});
+        borderColorPickerObject = new ej.inputs.ColorPicker({});
         borderStrokeWidthElement = document.createElement('input');
         propertiesTabElement.append(borderStrokeWidthElement);
-        borderStrokeWidthNumericTextBoxObject = new ej2_inputs_1.NumericTextBox({
+        borderStrokeWidthNumericTextBoxObject = new ej.inputs.NumericTextBox({
             placeholder: 'Border Stroke Width',
             floatLabelType: 'Always',
             width: 250
         });
         borderStrokeGapElement = document.createElement('input');
         propertiesTabElement.append(borderStrokeGapElement);
-        borderStrokeGapNumericTextBoxObject = new ej2_inputs_1.NumericTextBox({
+        borderStrokeGapNumericTextBoxObject = new ej.inputs.NumericTextBox({
             placeholder: 'Border Stroke Gap',
             floatLabelType: 'Always',
             width: 250
@@ -686,17 +686,17 @@
         dashArrayContainer.append(dashArrayText);
         dashArrayElement = document.createElement('input');
         dashArrayContainer.append(dashArrayElement);
-        dashArraySwitchObject = new ej2_buttons_1.Switch({ onLabel: 'On', offLabel: 'Off' });
+        dashArraySwitchObject = new ej.buttons.Switch({ onLabel: 'On', offLabel: 'Off' });
         lineWidthElement = document.createElement('input');
         propertiesTabElement.append(lineWidthElement);
-        lineWidthNumericTextBoxObject = new ej2_inputs_1.NumericTextBox({
+        lineWidthNumericTextBoxObject = new ej.inputs.NumericTextBox({
             placeholder: 'Line Stroke Width',
             floatLabelType: 'Always',
             width: 250
         });
         lineGapElement = document.createElement('input');
         propertiesTabElement.append(lineGapElement);
-        lineGapNumericTextBoxObject = new ej2_inputs_1.NumericTextBox({
+        lineGapNumericTextBoxObject = new ej.inputs.NumericTextBox({
             placeholder: 'Line Stroke Gap',
             floatLabelType: 'Always',
             width: 250
@@ -709,24 +709,24 @@
         legendContainer.append(legendText);
         legendElement = document.createElement('input');
         legendContainer.append(legendElement);
-        legendSwitchObject = new ej2_buttons_1.Switch({ onLabel: 'On', offLabel: 'Off' });
+        legendSwitchObject = new ej.buttons.Switch({ onLabel: 'On', offLabel: 'Off' });
         legendPositionElement = document.createElement('input');
         propertiesTabElement.append(legendPositionElement);
-        legendPositionDropDownListObject = new ej2_dropdowns_1.DropDownList({
+        legendPositionDropDownListObject = new ej.dropdowns.DropDownList({
             placeholder: 'Legend Position',
             floatLabelType: 'Always',
             width: 250
         });
         legendAlignmentElement = document.createElement('input');
         propertiesTabElement.append(legendAlignmentElement);
-        legendAlignmentDropDownListObject = new ej2_dropdowns_1.DropDownList({
+        legendAlignmentDropDownListObject = new ej.dropdowns.DropDownList({
             placeholder: 'Legend Alignment',
             floatLabelType: 'Always',
             width: 250
         });
         legendLayoutElement = document.createElement('input');
         propertiesTabElement.append(legendLayoutElement);
-        legendLayoutDropDownListObject = new ej2_dropdowns_1.DropDownList({
+        legendLayoutDropDownListObject = new ej.dropdowns.DropDownList({
             placeholder: 'Legend Layout',
             floatLabelType: 'Always',
             width: 250
@@ -947,7 +947,7 @@
         dialogHeaderContentElement.style.borderBottomRightRadius = '0px';
         minMaxElement = document.createElement('button');
         dialogHeaderContentElement.insertBefore(minMaxElement, dialogHeaderContentElement.querySelector('.e-dlg-header'));
-        minMaxButton = new ej2_buttons_1.Button({ iconCss: dialog.target === document.body ? 'e-grid-chart-dialog-min-icon' : 'e-grid-chart-dialog-max-icon', cssClass: 'e-grid-chart-dialog-min-max' }, minMaxElement);
+        minMaxButton = new ej.buttons.Button({ iconCss: dialog.target === document.body ? 'e-grid-chart-dialog-min-icon' : 'e-grid-chart-dialog-max-icon', cssClass: 'e-grid-chart-dialog-min-max' }, minMaxElement);
         minMaxButton.element.addEventListener('click', function (args) {
             var target = args.target.classList.contains('e-btn') ?
                 args.target.querySelector('.e-btn-icon') : args.target;
@@ -987,7 +987,7 @@
         renderSeries();
         renderLegend();
     };
-    var grid = new grid_1.Grid({
+    var grid = new ej.grids.Grid({
         locale: 'fr-BE',
         height: 490,
         dataSource: datasource_1.data,
