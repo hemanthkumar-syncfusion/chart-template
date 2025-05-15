@@ -278,5 +278,249 @@ for (var i = 0; i < dataCount; i++) {
     });
 }
 data.reverse();
+
+    var chartElement;
+    var chart;
+    var accumulationChartElement;
+    var accumulationChart;
+    var chartVisible;
+    var valueAccessor = function (field, data, column) {
+        return data[field] + "%";
+    };
+    var grid = new ej.grids.Grid({
+        height: 500,
+        dataSource: datasource_1.data,
+        allowSelection: true,
+        selectionSettings: { type: 'Multiple' },
+        enableChart: true,
+        chartSettings: {
+            enablePanel: true,
+            destroy: function () {
+                if (chart) {
+                    chart.destroy();
+                    chart = null;
+                    chartElement.remove();
+                    chartElement = null;
+                }
+                if (accumulationChart) {
+                    accumulationChart.destroy();
+                    accumulationChart = null;
+                    accumulationChartElement.remove();
+                    accumulationChartElement = null;
+                }
+            },
+            width: '825px',
+            height: '490px',
+            categoryAxis: ['Year', 'Name'],
+            series: ['Profit', 'Quality'],
+            enableExport: true,
+        },
+        contextMenuItems: [
+            'PdfExport',
+            'Bar', 'StackingBar', 'StackingBar100',
+            'Pie',
+            'Column', 'StackingColumn', 'StackingColumn100',
+            'Line', 'StackingLine', 'StackingLine100',
+            'Area', 'StackingArea', 'StackingArea100',
+            'Scatter'
+        ],
+        columns: [
+            { type: 'checkbox', width: 50 },
+            { field: 'Name', headerText: 'Product of the year', width: 150 },
+            { field: 'Year', headerText: 'Year List', textAlign: 'Right', width: 100 },
+            { field: 'Profit', headerText: 'Product Total Profit', valueAccessor: valueAccessor, textAlign: 'Right', width: 200 },
+            { field: 'Quality', headerText: 'Product Total Quality', valueAccessor: valueAccessor, textAlign: 'Right', width: 200 },
+            { field: 'Quantity', headerText: 'Product Total Quantity', textAlign: 'Right', width: 200 },
+            { field: 'Loss', headerText: 'Product Total Loss', valueAccessor: valueAccessor, textAlign: 'Right', width: 200 },
+        ],
+        renderChart: function (args) {
+            if (args.action === 'Export') {
+                var currentChart = chartVisible ? chart : accumulationChart;
+                if (args.exportOption.text === 'Print') {
+                    currentChart.print();
+                }
+                else {
+                    currentChart.exportModule.export(args.exportOption.text, 'Chart');
+                }
+            }
+            if (args.action === 'Render' || args.action === 'Update') {
+                if (args.action === 'Render') {
+                    args.targetElement.style.display = 'flex';
+                    args.targetElement.style.justifyContent = 'center';
+                    chartElement = document.createElement('div');
+                    chartElement.style.display = 'none';
+                    accumulationChartElement = document.createElement('div');
+                    accumulationChartElement.style.display = 'none';
+                    args.targetElement.append(chartElement);
+                    args.targetElement.append(accumulationChartElement);
+                }
+                if ([
+                    'Bar', 'StackingBar', 'StackingBar100',
+                    'Column', 'StackingColumn', 'StackingColumn100',
+                    'Line', 'StackingLine', 'StackingLine100',
+                    'Area', 'StackingArea', 'StackingArea100',
+                    'Scatter'
+                ].indexOf(args.chartType) !== -1) {
+                    chartVisible = true;
+                    var chartFlag = false;
+                    if (!chart) {
+                        chartFlag = true;
+                        chart = new ej.charts.Chart({
+                            height: '290px',
+                            width: '450px',
+                        });
+                    }
+                    var chartXAxis = void 0;
+                    if (args.chartSettings.categoryAxis === 'Year') {
+                        chartXAxis = {
+                            minimum: datasource_1.year,
+                            maximum: datasource_1.year + datasource_1.data.length,
+                            interval: 5,
+                            valueType: 'Double'
+                        };
+                    }
+                    else if (args.chartSettings.categoryAxis === 'Name') {
+                        chartXAxis = {
+                            interval: null,
+                            minimum: null,
+                            maximum: null,
+                            valueType: 'Category',
+                        };
+                    }
+                    chart.primaryXAxis = chartXAxis;
+                    chart.primaryYAxis = {
+                        minimum: 0,
+                        maximum: 200,
+                        interval: 20,
+                        valueType: 'Double'
+                    };
+                    if (args.chartSettings.axes === 'Category Axis') {
+                        chart.primaryXAxis.isInversed = args.chartSettings.axesInversed;
+                        chart.primaryXAxis.title = args.chartSettings.axesTitle;
+                        chart.primaryXAxis.titleStyle.fontFamily = args.chartSettings.axesTitleFont;
+                        chart.primaryXAxis.titleStyle.size = args.chartSettings.axesTitleSize + 'px';
+                        chart.primaryXAxis.titleStyle.color = args.chartSettings.axesTitleColor;
+                        chart.primaryXAxis.labelStyle.fontFamily = args.chartSettings.axesLabelFont;
+                        chart.primaryXAxis.labelStyle.size = args.chartSettings.axesLabelSize + 'px';
+                        chart.primaryXAxis.labelStyle.color = args.chartSettings.axesLabelColor;
+                        chart.primaryXAxis.labelRotation = args.chartSettings.axesLabelRotation;
+                    }
+                    else if (args.chartSettings.axes === 'Value Axis') {
+                        chart.primaryYAxis.isInversed = args.chartSettings.axesInversed;
+                        chart.primaryYAxis.title = args.chartSettings.axesTitle;
+                        chart.primaryYAxis.titleStyle.fontFamily = args.chartSettings.axesTitleFont;
+                        chart.primaryYAxis.titleStyle.size = args.chartSettings.axesTitleSize + 'px';
+                        chart.primaryYAxis.titleStyle.color = args.chartSettings.axesTitleColor;
+                        chart.primaryYAxis.labelStyle.fontFamily = args.chartSettings.axesLabelFont;
+                        chart.primaryYAxis.labelStyle.size = args.chartSettings.axesLabelSize + 'px';
+                        chart.primaryYAxis.labelStyle.color = args.chartSettings.axesLabelColor;
+                        chart.primaryYAxis.labelRotation = args.chartSettings.axesLabelRotation;
+                    }
+                    var chartSeries = [];
+                    for (var index = 0; index < args.chartSettings.series.length; index++) {
+                        var tempSeries = {
+                            dataSource: args.selectedRecords,
+                            xName: args.chartSettings.categoryAxis,
+                            yName: args.chartSettings.series[index],
+                            type: args.chartType,
+                            name: args.chartSettings.series[index]
+                        };
+                        if (args.chartSettings.stylingSeries === 'All'
+                            || args.chartSettings.stylingSeries === args.chartSettings.series[index]) {
+                            tempSeries.fill = args.chartSettings.seriesColor;
+                            tempSeries.marker = { dataLabel: { visible: args.chartSettings.seriesDataLabel } };
+                        }
+                        chartSeries.push(tempSeries);
+                    }
+                    chart.series = chartSeries;
+                    chart.tooltip = { enable: args.chartSettings.tooltip };
+                    chart.margin = {
+                        top: args.chartSettings.marginTop,
+                        bottom: args.chartSettings.marginBottom,
+                        left: args.chartSettings.marginLeft,
+                        right: args.chartSettings.marginRight,
+                    };
+                    chart.background = args.chartSettings.background;
+                    if (args.chartSettings.titleSection === 'Title') {
+                        chart.title = args.chartSettings.title;
+                        chart.titleStyle.fontFamily = args.chartSettings.titleFont;
+                        chart.titleStyle.size = args.chartSettings.titleSize + 'px';
+                        chart.titleStyle.color = args.chartSettings.titleColor;
+                    }
+                    else if (args.chartSettings.titleSection === 'Subtitle') {
+                        chart.subTitle = args.chartSettings.title;
+                        chart.subTitleStyle.fontFamily = args.chartSettings.titleFont;
+                        chart.subTitleStyle.size = args.chartSettings.titleSize + 'px';
+                        chart.subTitleStyle.color = args.chartSettings.titleColor;
+                    }
+                    chart.legendSettings = {
+                        visible: args.chartSettings.legend,
+                        position: args.chartSettings.legendPosition,
+                        textStyle: {
+                            color: args.chartSettings.legendColor,
+                            size: args.chartSettings.legendSize,
+                            fontFamily: args.chartSettings.legendFont
+                        }
+                    };
+                    accumulationChartElement.style.display = 'none';
+                    chartElement.style.display = '';
+                    chartFlag ? chart.appendTo(chartElement) : chart.refresh();
+                }
+                if (args.chartType === 'Pie') {
+                    chartVisible = false;
+                    var accumulationChartFlag = false;
+                    if (!accumulationChart) {
+                        accumulationChartFlag = true;
+                        accumulationChart = new ej.charts.AccumulationChart({
+                            height: '290px',
+                            width: '450px',
+                        });
+                    }
+                    accumulationChart.series = [
+                        {
+                            dataSource: args.selectedRecords,
+                            xName: args.chartSettings.categoryAxis,
+                            yName: args.chartSettings.accumulationValueAxis,
+                            type: args.chartType,
+                            dataLabel: { visible: args.chartSettings.seriesDataLabel }
+                        }
+                    ];
+                    accumulationChart.tooltip = { enable: args.chartSettings.tooltip };
+                    accumulationChart.margin = {
+                        top: args.chartSettings.marginTop,
+                        bottom: args.chartSettings.marginBottom,
+                        left: args.chartSettings.marginLeft,
+                        right: args.chartSettings.marginRight,
+                    };
+                    accumulationChart.background = args.chartSettings.background;
+                    if (args.chartSettings.titleSection === 'Title') {
+                        accumulationChart.title = args.chartSettings.title;
+                        accumulationChart.titleStyle.fontFamily = args.chartSettings.titleFont;
+                        accumulationChart.titleStyle.size = args.chartSettings.titleSize + 'px';
+                        accumulationChart.titleStyle.color = args.chartSettings.titleColor;
+                    }
+                    else if (args.chartSettings.titleSection === 'Subtitle') {
+                        accumulationChart.subTitle = args.chartSettings.title;
+                        accumulationChart.subTitleStyle.fontFamily = args.chartSettings.titleFont;
+                        accumulationChart.subTitleStyle.size = args.chartSettings.titleSize + 'px';
+                        accumulationChart.subTitleStyle.color = args.chartSettings.titleColor;
+                    }
+                    accumulationChart.legendSettings = {
+                        visible: args.chartSettings.legend,
+                        position: args.chartSettings.legendPosition,
+                        textStyle: {
+                            color: args.chartSettings.legendColor,
+                            size: args.chartSettings.legendSize,
+                            fontFamily: args.chartSettings.legendFont
+                        }
+                    };
+                    chartElement.style.display = 'none';
+                    accumulationChartElement.style.display = '';
+                    accumulationChartFlag ? accumulationChart.appendTo(accumulationChartElement) : accumulationChart.refresh();
+                }
+            }
+        }
+    });
+    grid.appendTo('#Grid');
 </script>
 </body></html>
