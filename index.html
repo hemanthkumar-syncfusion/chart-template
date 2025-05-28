@@ -264,124 +264,124 @@
     <div id="Grid"></div>
     <script>
         var data = [];
-var dataCount = 20;
-var year = new Date().getFullYear() - dataCount;
-var fruits = [
-    "Apple",
-    "Banana",
-    "Mango",
-    "Orange",
-    "Pineapple",
-    "Grapes",
-    "Strawberry",
-    "Watermelon",
-    "Papaya",
-    "Blueberry",
-    "Kiwi",
-    "Peach",
-    "Pear",
-    "Cherry",
-    "Pomegranate",
-    "Guava",
-    "Lychee",
-    "Plum",
-    "Coconut",
-    "Dragon fruit"
-];
-var getRandomNumber = function (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-for (var i = 0; i < dataCount; i++) {
-    var loss = getRandomNumber(5, 70);
-    data.push({
-        Name: fruits[Math.floor(Math.random() * fruits.length)],
-        Year: year + i,
-        Profit: 100 - loss,
-        Loss: loss,
-        Quality: getRandomNumber(20, 95),
-        Quantity: getRandomNumber(50000, 70000)
-    });
-}
-data.reverse();
+        var dataCount = 20;
+        var year = new Date().getFullYear() - dataCount;
+        var fruits = [
+            "Apple",
+            "Banana",
+            "Mango",
+            "Orange",
+            "Pineapple",
+            "Grapes",
+            "Strawberry",
+            "Watermelon",
+            "Papaya",
+            "Blueberry",
+            "Kiwi",
+            "Peach",
+            "Pear",
+            "Cherry",
+            "Pomegranate",
+            "Guava",
+            "Lychee",
+            "Plum",
+            "Coconut",
+            "Dragon fruit"
+        ];
+        var getRandomNumber = function (min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        };
+        for (var i = 0; i < dataCount; i++) {
+            var loss = getRandomNumber(5, 70);
+            data.push({
+                Name: fruits[Math.floor(Math.random() * fruits.length)],
+                Year: year + i,
+                Profit: 100 - loss,
+                Loss: loss,
+                Quality: getRandomNumber(20, 95),
+                Quantity: getRandomNumber(50000, 70000)
+            });
+        }
+        data.reverse();
 
         var gridChart = new ej.grids.GridChart({
-    enablePanel: true,
-    allowExport: true,
-    chartPopupSettings: {
-        title: 'Chart',
-    },
-    updateChartSettings: function (args) {
-        if (args.chartType !== 'Pie') {
-            generateChartModel(args.changes.chart);
-        }
-    },
-});
-var valueAccessor = function (field, data, column) {
-    return data[field] + "%";
-};
-
-var grid = new ej.grids.Grid({
-    height: 550,
-    dataSource: data,
-    allowSelection: true,
-    selectionSettings: { type: 'Multiple' },
-    enableChart: true,
-    contextMenuItems: [
-        'PdfExport',
-        'Bar', 'StackingBar', 'StackingBar100',
-        'Pie',
-        'Column', 'StackingColumn', 'StackingColumn100',
-        'Line', 'StackingLine', 'StackingLine100',
-        'Area', 'StackingArea', 'StackingArea100',
-        'Scatter'
-    ],
-    columns: [
-        { type: 'checkbox', width: 50 },
-        { field: 'Name', headerText: 'Product of the year', width: 150 },
-        { field: 'Year', headerText: 'Year List', textAlign: 'Right', width: 100 },
-        { field: 'Profit', headerText: 'Product Total Profit', valueAccessor: valueAccessor, textAlign: 'Right', width: 200 },
-        { field: 'Quality', headerText: 'Product Total Quality', valueAccessor: valueAccessor, textAlign: 'Right', width: 200 },
-        { field: 'Quantity', headerText: 'Product Total Quantity', textAlign: 'Right', width: 200 },
-        { field: 'Loss', headerText: 'Product Total Loss', valueAccessor: valueAccessor, textAlign: 'Right', width: 200 },
-    ],
-    contextMenuClick: function (args) {
-        if (args.chartType) {
-            var chartArgs = {
-                gridInstance: args.gridInstance,
-                chartType: args.chartType,
-                records: args.records
-            };
-            var chartModel = {
-                width: '500px',
-                height: '320px',
-                primaryXAxis: {
-                    valueType: 'Double'
-                },
-                primaryYAxis: {
-                    valueType: 'Double'
+            enablePanel: true,
+            allowExport: true,
+            chartPopupSettings: {
+                title: 'Chart',
+            },
+            updateChartSettings: function (args) {
+                if (args.chartType !== 'Pie') {
+                    generateChartModel(args.changes.chart);
                 }
-            };
-            var accumulationChartModel = {
-                width: '500px',
-                height: '320px'
-            };
-            var model = { chart: chartModel, accumulationChart: accumulationChartModel };
-            var categorySeries = {
-                category: ['Year', 'Name'],
-                series: ['Profit', 'Quality']
-            };
-            gridChart.render(chartArgs, model, categorySeries);
-        }
-    }
-});
-grid.appendTo('#Grid');
-function generateChartModel(chartModel) {
-    if (chartModel.series && chartModel.series.length) {
-        chartModel.primaryXAxis = {
-            valueType: chartModel.series[0].xName === 'Year' ? 'Double' : 'Category'
+            },
+        });
+        var valueAccessor = function (field, data, column) {
+            return data[field] + "%";
         };
-    }
-}
+
+        var grid = new ej.grids.Grid({
+            height: 550,
+            dataSource: data,
+            allowSelection: true,
+            selectionSettings: { type: 'Multiple' },
+            enableChart: true,
+            contextMenuItems: [
+                'PdfExport',
+                'Bar', 'StackingBar', 'StackingBar100',
+                'Pie',
+                'Column', 'StackingColumn', 'StackingColumn100',
+                'Line', 'StackingLine', 'StackingLine100',
+                'Area', 'StackingArea', 'StackingArea100',
+                'Scatter'
+            ],
+            columns: [
+                { type: 'checkbox', width: 50 },
+                { field: 'Name', headerText: 'Product of the year', width: 150 },
+                { field: 'Year', headerText: 'Year List', textAlign: 'Right', width: 100 },
+                { field: 'Profit', headerText: 'Product Total Profit', valueAccessor: valueAccessor, textAlign: 'Right', width: 200 },
+                { field: 'Quality', headerText: 'Product Total Quality', valueAccessor: valueAccessor, textAlign: 'Right', width: 200 },
+                { field: 'Quantity', headerText: 'Product Total Quantity', textAlign: 'Right', width: 200 },
+                { field: 'Loss', headerText: 'Product Total Loss', valueAccessor: valueAccessor, textAlign: 'Right', width: 200 },
+            ],
+            contextMenuClick: function (args) {
+                if (args.chartType) {
+                    var chartArgs = {
+                        gridInstance: args.gridInstance,
+                        chartType: args.chartType,
+                        records: args.records
+                    };
+                    var chartModel = {
+                        width: '500px',
+                        height: '320px',
+                        primaryXAxis: {
+                            valueType: 'Double'
+                        },
+                        primaryYAxis: {
+                            valueType: 'Double'
+                        }
+                    };
+                    var accumulationChartModel = {
+                        width: '500px',
+                        height: '320px'
+                    };
+                    var model = { chart: chartModel, accumulationChart: accumulationChartModel };
+                    var categorySeries = {
+                        category: ['Year', 'Name'],
+                        series: ['Profit', 'Quality']
+                    };
+                    gridChart.render(chartArgs, model, categorySeries);
+                }
+            }
+        });
+        grid.appendTo('#Grid');
+        function generateChartModel(chartModel) {
+            if (chartModel.series && chartModel.series.length) {
+                chartModel.primaryXAxis = {
+                    valueType: chartModel.series[0].xName === 'Year' ? 'Double' : 'Category'
+                };
+            }
+        }
     </script>
 </body>
 
