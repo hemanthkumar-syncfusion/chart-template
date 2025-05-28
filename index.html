@@ -304,7 +304,84 @@ for (var i = 0; i < dataCount; i++) {
 }
 data.reverse();
 
-        
+        var gridChart = new ej.grids.GridChart({
+    enablePanel: true,
+    allowExport: true,
+    chartPopupSettings: {
+        title: 'Chart',
+    },
+    updateChartSettings: function (args) {
+        if (args.chartType !== 'Pie') {
+            generateChartModel(args.changes.chart);
+        }
+    },
+});
+var valueAccessor = function (field, data, column) {
+    return data[field] + "%";
+};
+
+var grid = new ej.grids.Grid({
+    height: 550,
+    dataSource: data,
+    allowSelection: true,
+    selectionSettings: { type: 'Multiple' },
+    enableChart: true,
+    contextMenuItems: [
+        'PdfExport',
+        'Bar', 'StackingBar', 'StackingBar100',
+        'Pie',
+        'Column', 'StackingColumn', 'StackingColumn100',
+        'Line', 'StackingLine', 'StackingLine100',
+        'Area', 'StackingArea', 'StackingArea100',
+        'Scatter'
+    ],
+    columns: [
+        { type: 'checkbox', width: 50 },
+        { field: 'Name', headerText: 'Product of the year', width: 150 },
+        { field: 'Year', headerText: 'Year List', textAlign: 'Right', width: 100 },
+        { field: 'Profit', headerText: 'Product Total Profit', valueAccessor: valueAccessor, textAlign: 'Right', width: 200 },
+        { field: 'Quality', headerText: 'Product Total Quality', valueAccessor: valueAccessor, textAlign: 'Right', width: 200 },
+        { field: 'Quantity', headerText: 'Product Total Quantity', textAlign: 'Right', width: 200 },
+        { field: 'Loss', headerText: 'Product Total Loss', valueAccessor: valueAccessor, textAlign: 'Right', width: 200 },
+    ],
+    contextMenuClick: function (args) {
+        if (args.chartType) {
+            var chartArgs = {
+                gridInstance: args.gridInstance,
+                chartType: args.chartType,
+                records: args.records
+            };
+            var chartModel = {
+                width: '500px',
+                height: '320px',
+                primaryXAxis: {
+                    valueType: 'Double'
+                },
+                primaryYAxis: {
+                    valueType: 'Double'
+                }
+            };
+            var accumulationChartModel = {
+                width: '500px',
+                height: '320px'
+            };
+            var model = { chart: chartModel, accumulationChart: accumulationChartModel };
+            var categorySeries = {
+                category: ['Year', 'Name'],
+                series: ['Profit', 'Quality']
+            };
+            gridChart.render(chartArgs, model, categorySeries);
+        }
+    }
+});
+grid.appendTo('#Grid');
+function generateChartModel(chartModel) {
+    if (chartModel.series && chartModel.series.length) {
+        chartModel.primaryXAxis = {
+            valueType: chartModel.series[0].xName === 'Year' ? 'Double' : 'Category'
+        };
+    }
+}
     </script>
 </body>
 
