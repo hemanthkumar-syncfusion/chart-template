@@ -207,10 +207,18 @@
             font-weight: 500;
         }
 
+        .e-bigger.e-grid-context-menu-dialog .e-grid-chart-props-header {
+            font-size: 15px;
+        }
+
         .e-grid-context-menu-dialog .e-grid-chart-props-normal-header {
             margin-bottom: 4px;
             font-size: 13px;
             font-weight: 400;
+        }
+
+        .e-bigger.e-grid-context-menu-dialog .e-grid-chart-props-normal-header {
+            font-size: 15px;
         }
 
         .e-grid-context-menu-dialog .e-grid-dialog-data-tab-container {
@@ -231,10 +239,13 @@
             display: flex;
             cursor: pointer;
             align-items: center;
-            margin-top: 4px;
-            margin-bottom: 4px;
+            margin: 4px 0px;
             border-radius: 4px;
             padding: 6px;
+        }
+
+        .e-bigger.e-grid-context-menu-dialog .e-grid-chart-list {
+            padding: 8px 12px;
         }
 
         .e-grid-context-menu-dialog .e-grid-chart-list:hover {
@@ -377,8 +388,9 @@
         grid.appendTo('#Grid');
         function generateChartModel(chartModel) {
             if (chartModel.series && chartModel.series.length) {
+                var isName = chartModel.series.some(function (series) { return series.xName === 'Name'; });
                 chartModel.primaryXAxis = {
-                    valueType: chartModel.series[0].xName === 'Year' ? 'Double' : 'Category'
+                    valueType: isName ? 'Category' : 'Double'
                 };
             }
         }
